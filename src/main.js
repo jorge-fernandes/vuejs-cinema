@@ -5,13 +5,22 @@ new Vue({
 	el: '#app',
 	components: {
 		'movie-list': {
-			template: `<div id="movie-list">
-							Movie List
-						</div>`
+			template:  `<div id="movie-list">
+							<div class="movie" v-for="movie in movies">{{ movie.title }}</div>
+						</div>`,
+			data() {
+				return {
+					movies: [
+						{ title: 'Pulp Fiction' },
+						{ title: 'Home Alone' },
+						{ title: 'Austin Powers' }
+					]
+				};
+			}
 		},
 		'movie-filter': {
-			template: `<div id="movie-list">
-							Movie Filter
+			template:  `<div id="movie-list">
+							<h2>Filter results</h2>
 						</div>`
 		}
 	}
