@@ -4,11 +4,15 @@ import './style.scss';
 import MovieList from './components/MovieList.vue'
 import MovieFilter from './components/MovieFilter.vue'
 
+import axios from 'axios';
+window.axios = axios;
+
 new Vue({
 	el: '#app',
 	data: {
 		genre: [],
-		time: []
+		time: [],
+		movies: []
 	},
 	methods: {
 		checkFilter(category, title, checked) {
@@ -25,5 +29,10 @@ new Vue({
 	components: {
 		MovieList,
 		MovieFilter
+	},
+	created() {
+		axios.get('/api').then(response => {
+			this.movies = response.data;
+		})
 	}
 });
