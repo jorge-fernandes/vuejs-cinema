@@ -5,5 +5,6 @@ module.exports = Object.freeze({
   DOCUMENTARY: 'Documentary',
   DRAMA: 'Drama',
   FANTASY: 'Fantasy',
-  HORROR: 'Horror'
+  HORROR: 'Horror',
+  SCIFI: 'Science fiction'
 });
