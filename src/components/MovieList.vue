@@ -1,24 +1,16 @@
 <template>
 	<div id="movie-list">
-		<div class="movie" v-for="movie in filteredMovies">{{ movie.title }}</div>
+		<div class="movie" v-for="movie in filteredMovies">{{ movie.movie.Title }}</div>
 	</div>
 </template>
 <script>
 	import genres from '../util/genres';
 
 	export default {
-		data() {
-			return {
-				movies: [
-					{ title: 'Pulp Fiction', genre: genres.SCIFI },
-					{ title: 'Home Alone', genre: genres.COMEDY },
-					{ title: 'Austin Powers', genre: genres.COMEDY }
-				]
-			};
-		},
 		props: [
 			'genre',
-			'time'
+			'time',
+			'movies'
 		],
 		methods: {
 			moviesPassGenreFilter(movie) {
