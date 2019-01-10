@@ -5,14 +5,19 @@ import MovieList from './components/MovieList.vue'
 import MovieFilter from './components/MovieFilter.vue'
 
 import axios from 'axios';
-window.axios = axios;
+window.axios = axios; //the defineProperty approach seems less hacky
+
+import moment from 'moment-timezone';
+moment.tz.setDefault('UTC');
+Object.defineProperty(Vue.prototype, '$moment', { get() { return this.$root.moment } });
 
 new Vue({
 	el: '#app',
 	data: {
 		genre: [],
 		time: [],
-		movies: []
+		movies: [],
+		moment
 	},
 	methods: {
 		checkFilter(category, title, checked) {
