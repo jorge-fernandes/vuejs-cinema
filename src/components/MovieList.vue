@@ -13,6 +13,7 @@
 </template>
 <script>
 	import genres from '../util/genres';
+	import times from '../util/times';
 	import MovieItem from './MovieItem.vue';
 
 	export default {
@@ -22,13 +23,18 @@
 			'movies',
 			'day'
 		],
+		data() {
+			return {
+				genres,
+				times
+			}
+		},
 		methods: {
 			moviesPassGenreFilter(movie) {
 				if(!this.genre.length) {
 					return true;
 				} else {
 					let movieGenres = movie.movie.Genre.split(', ');
-					console.log(movieGenres)
 					let matched = true;
 					this.genre.forEach(genre => {
 						if (movieGenres.indexOf(genre) === -1) {
@@ -37,11 +43,25 @@
 					})
 					return matched;
 				}
+			},
+			sessionPassesTimeFilter(session) {
+				console.log(this.time.length, Object.keys(this.times).length)
+				if(!this.day.isSame(this.$moment(session.time), 'day')) {
+					return false;
+				} else if(this.time.length === 0 || this.time.length === Object.keys(this.times).length) {
+					return true;
+				} else if(this.time[0] === this.times.AFTER_6PM) {
+					return this.$moment(session.time).hour() >= 18;
+				} else {
+					return this.$moment(session.time).hour() < 18;
+				}
 			}
 		},
 		computed: {
 			filteredMovies() {
-				return this.movies.filter(this.moviesPassGenreFilter);
+				return this.movies
+					.filter(this.moviesPassGenreFilter)
+					.filter(movie => movie.sessions.find(this.sessionPassesTimeFilter));
 			}
 		},
 		components: {
