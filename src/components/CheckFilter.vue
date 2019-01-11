@@ -11,7 +11,10 @@
 				checked: false
 			}
 		},
-		props: [ 'title' ],
+		props: [ 
+			'title',
+			'category'
+		],
 		methods: {
 			checkFilter() {
 				this.checked = !this.checked;
