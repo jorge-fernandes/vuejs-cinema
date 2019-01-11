@@ -1,7 +1,7 @@
 <template>
 	<div id="movie-list">
 		<div v-if="filteredMovies.length">
-			<movie-item v-for="movie in filteredMovies" v-bind:movie="movie.movie" v-bind:sessions="movie.sessions" v-bind:day="day"></movie-item>
+			<movie-item v-for="movie in filteredMovies" v-bind:movie="movie.movie" v-bind:sessions="movie.sessions" v-bind:day="day" v-bind:time="time"></movie-item>
 		</div>
 		<div v-else-if="movies.length" class="no-results">
 			No results.
@@ -45,7 +45,6 @@
 				}
 			},
 			sessionPassesTimeFilter(session) {
-				console.log(this.time.length, Object.keys(this.times).length)
 				if(!this.day.isSame(this.$moment(session.time), 'day')) {
 					return false;
 				} else if(this.time.length === 0 || this.time.length === Object.keys(this.times).length) {
