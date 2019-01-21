@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import './style.scss';
 
-import Overview from './components/Overview.vue'
+import Overview from './components/Overview.vue';
 
 import axios from 'axios';
 window.axios = axios; //the defineProperty approach seems less hacky
@@ -13,6 +13,15 @@ Object.defineProperty(Vue.prototype, '$moment', { get() { return this.$root.mome
 import { checkFilter } from './util/bus';
 const bus = new Vue();
 Object.defineProperty(Vue.prototype, '$bus', { get() { return this.$root.bus } });
+
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
+import routes from './util/routes';
+
+const router = new VueRouter({
+	routes
+});
 
 new Vue({
 	el: '#app',
@@ -32,5 +41,6 @@ new Vue({
 			this.movies = response.data;
 		})
 		this.$bus.$on('check-filter', checkFilter.bind(this));
-	}
+	},
+	router
 });
