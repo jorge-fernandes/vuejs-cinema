@@ -1,5 +1,25 @@
 <template>
 	<div id="day-select">
-		Day Select placeholder
+		<ul class="days">
+			<li class="day" v-for="day in days">{{ formatDay(day) }}</li>
+		</ul>
 	</div>
 </template>
+<script>
+	export default {
+		data() {
+			return {
+				days: [0, 1, 2, 3, 4, 5, 6].map(num => this.$moment().add(num, 'days'))
+			}
+		},
+		methods: {
+			formatDay(raw) {
+				let formattedDay = 'Today';
+				if(!raw.isSame(this.$moment(), 'day')) {
+					formattedDay = raw.format('ddd DD/MM');
+				}
+				return formattedDay;
+			}
+		}
+	}
+</script>
