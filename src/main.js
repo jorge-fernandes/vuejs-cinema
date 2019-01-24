@@ -40,3 +40,9 @@ new Vue({
 	},
 	router
 });
+
+Vue.directive('tooltip', {
+	bind(el, bindings) {
+		console.log(el);
+	}
+});
